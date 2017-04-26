@@ -72,7 +72,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /// if the first parameter is `false`. Returns `nil` if appearance transition is not in progress.
     private var _isAppearing: Bool?
 
-    public var screenEdgePanGestureEnabled = true
+    open var screenEdgePanGestureEnabled = true
     
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
@@ -324,7 +324,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Public Method
     /**************************************************************************/
     
-    public func setDrawerState(_ state: DrawerState, animated: Bool) {
+    open func setDrawerState(_ state: DrawerState, animated: Bool) {
         _containerView.isHidden = false
         let duration: TimeInterval = animated ? drawerAnimationDuration : 0
 
