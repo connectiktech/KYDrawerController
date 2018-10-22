@@ -139,13 +139,13 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public var mainViewController: UIViewController! {
         didSet {
             if let oldController = oldValue {
-                oldController.willMove(toParentViewController: nil)
+                oldController.willMove(toParent: nil)
                 oldController.view.removeFromSuperview()
-                oldController.removeFromParentViewController()
+                oldController.removeFromParent()
             }
 
             guard let mainViewController = mainViewController else { return }
-            addChildViewController(mainViewController)
+            addChild(mainViewController)
 
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
@@ -168,20 +168,20 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 )
             )
 
-            mainViewController.didMove(toParentViewController: self)
+            mainViewController.didMove(toParent: self)
         }
     }
     
     public var drawerViewController : UIViewController? {
         didSet {
             if let oldController = oldValue {
-                oldController.willMove(toParentViewController: nil)
+                oldController.willMove(toParent: nil)
                 oldController.view.removeFromSuperview()
-                oldController.removeFromParentViewController()
+                oldController.removeFromParent()
             }
 
             guard let drawerViewController = drawerViewController else { return }
-            addChildViewController(drawerViewController)
+            addChild(drawerViewController)
 
             drawerViewController.view.layer.shadowColor   = UIColor.black.cgColor
             drawerViewController.view.layer.shadowOpacity = 0.4
@@ -189,8 +189,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
             _containerView.addSubview(drawerViewController.view)
 
-            let itemAttribute: NSLayoutAttribute
-            let toItemAttribute: NSLayoutAttribute
+            let itemAttribute: NSLayoutConstraint.Attribute
+            let toItemAttribute: NSLayoutConstraint.Attribute
             switch drawerDirection {
             case .left:
                 itemAttribute   = .right
@@ -202,10 +202,10 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
             _drawerWidthConstraint = NSLayoutConstraint(
                 item: drawerViewController.view,
-                attribute: NSLayoutAttribute.width,
-                relatedBy: NSLayoutRelation.equal,
+                attribute: NSLayoutConstraint.Attribute.width,
+                relatedBy: NSLayoutConstraint.Relation.equal,
                 toItem: nil,
-                attribute: NSLayoutAttribute.width,
+                attribute: NSLayoutConstraint.Attribute.width,
                 multiplier: 1,
                 constant: drawerWidth
             )
@@ -214,7 +214,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             _drawerConstraint = NSLayoutConstraint(
                 item: drawerViewController.view,
                 attribute: itemAttribute,
-                relatedBy: NSLayoutRelation.equal,
+                relatedBy: NSLayoutConstraint.Relation.equal,
                 toItem: _containerView,
                 attribute: toItemAttribute,
                 multiplier: 1,
@@ -233,7 +233,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             )
             _containerView.updateConstraints()
             drawerViewController.updateViewConstraints()
-            drawerViewController.didMove(toParentViewController: self)
+            drawerViewController.didMove(toParent: self)
         }
     }
     
